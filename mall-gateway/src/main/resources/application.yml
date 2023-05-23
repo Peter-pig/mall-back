@@ -1,0 +1,27 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 43.134.18.178:8848
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:8080"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+      routes:
+        - id: mall-user
+          uri: lb://mall-users
+          predicates:
+            - Path=/user/**
